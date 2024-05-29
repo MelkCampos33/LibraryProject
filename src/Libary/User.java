@@ -35,7 +35,7 @@ public abstract class User {
     }
 
     public String getName() {
-        return email;
+        return name;
     }
 
     public String getEmail() {
@@ -54,6 +54,7 @@ public abstract class User {
         JFrame frame = new JFrame();
 
         frame.setSize(400, 500);
+
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setTitle(" E-Livroteca: Biblioteca Virtual Multidisciplinar ");
@@ -65,11 +66,12 @@ public abstract class User {
         frame.getContentPane().add(label1, BorderLayout.NORTH);
 
         JPanel panel_1 = new JPanel();
+
         panel_1.setBorder(BorderFactory.createEmptyBorder(0, 30, 30, 30));
-        panel_1.setLayout(new GridLayout(7, 1, 15, 15));
+        panel_1.setLayout(new GridLayout(data.length, 1, 15, 15));
         panel_1.setBackground(null);
 
-        for(int i = 0; i < 7; i++) {
+        for(int i = 0; i < data.length; i++) {
 
             JButton button = new JButton(data[i]);
 
@@ -82,6 +84,7 @@ public abstract class User {
             int index = i;
 
             button.addActionListener(new ActionListener() {
+
                 @Override
                 public void actionPerformed(ActionEvent event) {
                     operations[index].oper(database, user);

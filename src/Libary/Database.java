@@ -1,10 +1,6 @@
 package Libary;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.PrintWriter;
-import java.nio.Buffer;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -22,7 +18,7 @@ public class Database {
     private File booksfile = new File("D:\\Libary Management System\\Data\\Books");
     private File ordersfile = new File("D:\\Libary Management System\\Data\\Orders");
     private File borrowingsfile = new File("D:\\Libary Management System\\Data\\Borrowings");
-    private File folder = new File("D:\\Library Management System\\Data");
+    private File folder = new File("D:\\Libary Management System\\Data");
 
 
     public Database() {
@@ -45,6 +41,7 @@ public class Database {
             try {
                 booksfile.createNewFile();
             } catch (Exception event) {
+
             }
         }
 
@@ -80,23 +77,34 @@ public class Database {
     }
 
     // adiciona novo usuário
-    public void AddUser(User value) {
-        users.add(value);
-        usernames.add(value.getName());
+    public void AddUser(User userValue) {
+
+        users.add(userValue);
+        usernames.add(userValue.getName());
+        saveUsers();
     }
 
-    // login no sistema
+    // ------------------------------ login no sistema --------------------------------------------------------------------------------------
     public int login(String phonenumber, String email) {
-        int value = -1;
 
-        for (User userValue : users) {
+        if(phonenumber == null || phonenumber.isEmpty() || email == null || email.isEmpty()) {
+            System.err.println("O número ou email estão inválidos!");
+            return -1;
+        }
 
-            if (userValue.getPhonenumber().matches(phonenumber) && userValue.getEmail().matches(email)) {
-                value = users.indexOf(userValue);
-                break;
+        for(int i = 0; i < users.size(); i++) {
+
+            User userValue = users.get(i);
+
+            // validação dos dados de login
+            if(userValue.getPhonenumber().equals(phonenumber) && userValue.getEmail().equals(email)) {
+                return i;
             }
         }
-        return value;
+
+        System.out.println("Falha ao tentar acessar a conta: O usuário não existe");
+        return -1;
+
     }
 
 
@@ -121,33 +129,43 @@ public class Database {
             String string_1;
 
             while ((string_1 = br_1.readLine()) != null) {
-                firstText = firstText + string_1;
+                firstText += string_1 + "\n";
             }
+
             br_1.close();
 
         } catch (Exception event) {
-            System.out.println(event.toString());
+            System.err.println("Erro na leitura do arquivo: " + event.toString());
         }
 
-        if (!firstText.matches("") || !firstText.isEmpty()) {
+        if (!firstText.isEmpty()) {
             String[] arrayValue1 = firstText.split("<NewUser/>"); // passando a string para um array de usuarios
 
             for (String stringValue : arrayValue1) {
                 String[] arrayValue2 = stringValue.split("<N/>");
 
-                if (arrayValue2[3].matches("Admin")) {
+               if(arrayValue2.length >= 4) {
 
-                    User user = new Admin(arrayValue2[0], arrayValue2[1], arrayValue2[2]);
-                    users.add(user);
-                    usernames.add(user.getName());
+                   if (arrayValue2[3].matches("Admin")) {
 
-                } else {
+                       User user = new Admin(arrayValue2[0], arrayValue2[1], arrayValue2[2]);
+                       users.add(user);
+                       usernames.add(user.getName());
 
-                    User user = new NormalUser(arrayValue2[0], arrayValue2[1], arrayValue2[2]);
-                    users.add(user);
-                    usernames.add(user.getName());
-                }
+
+                   } else {
+
+                       User user = new NormalUser(arrayValue2[0], arrayValue2[1], arrayValue2[2]);
+                       users.add(user);
+                       usernames.add(user.getName());
+                   }
+
+               } else {
+                   System.err.println("Erro na leitura do arquivo: " + stringValue);
+               }
             }
+        } else {
+            System.err.println("Os dados do usuário não foram encontrados");
         }
     }
 
@@ -164,12 +182,13 @@ public class Database {
         }
 
         try {
+
             PrintWriter printwriter_value = new PrintWriter(usersfile);
             printwriter_value.print(firstText);
             printwriter_value.close();
 
         } catch (Exception event) {
-            System.out.println(event.toString());
+            System.err.println(event.toString());
         }
     }
 
@@ -196,7 +215,6 @@ public class Database {
 // -----------------------------------------------------------------
 
     private void getBooks() {
-
         String firstText = "";
 
         try {
@@ -210,17 +228,23 @@ public class Database {
             bufferValue.close();
 
         } catch (Exception event) {
-            System.out.println(event.toString());
+            System.err.println(event.toString());
         }
 
-        if (!firstText.matches("") || !firstText.isEmpty()) {
-            String[] arrayString = firstText.split("<NewBook/>");
+        if (!firstText.isEmpty()) {
+            String[] bookArray = firstText.split("<NewBook/>");
 
-            for (String stringValue : arrayString) {
+            for (String stringValue : bookArray) {
 
                 Book book = parseBook(stringValue);
-                books.add(book);
-                booknames.add(book.getName());
+
+                if(book != null) {
+                    books.add(book);
+                    booknames.add(book.getName());
+
+                } else {
+                    System.err.println("Formato inválido!");
+                }
             }
         }
     }
@@ -229,17 +253,25 @@ public class Database {
 
         String[] array = stringValue.split("N/");
 
-        Book book = new Book();
-        book.setName(array[0]);
-        book.setAuthor(array[1]);
-        book.setPublisher(array[2]);
-        book.setAdress(array[3]);
+        if(array.length >= 7) {
 
-        book.setQty(Integer.parseInt(array[4]));
-        book.setPrice(Double.parseDouble(array[5]));
-        book.setBrwcopies(Integer.parseInt(array[6]));
+            Book book = new Book();
+            book.setName(array[0]);
+            book.setAuthor(array[1]);
+            book.setPublisher(array[2]);
+            book.setAdress(array[3]);
 
-        return book;
+            book.setQty(Integer.parseInt(array[4]));
+            book.setPrice(Double.parseDouble(array[5]));
+            book.setBrwcopies(Integer.parseInt(array[6]));
+
+            return book;
+        } else {
+
+            // se caso o array não tenha elementos suficiente
+            System.err.println("Formato inválido.");
+            return null;
+        }
     }
 
     public ArrayList<Book> getAllBooks() {
@@ -376,21 +408,18 @@ public class Database {
 
     private User getUserByName(String name) {
 
-        User userValue = new NormalUser("");
-
-        for (User user : users) {
-            if (user.getName().matches(name)) {
-                userValue = user;
-                break;
+        for(User user : users) {
+            if(user != null && user.getName().matches(name)) {
+                return user;
             }
         }
-        return userValue;
+
+        return null;
     }
 
     private Order parseOrder(String stringValue) {
 
         String[] arrayValue = stringValue.split("<N/>");
-
         Order order = new Order(
 
                 books.get(getBook(arrayValue[0])),
@@ -479,7 +508,7 @@ public class Database {
             return borrowings;
         }
 
-        public void returnBook (Borrowing btw, Book book,int bookindex){
+        public void returnBook (Borrowing btw, Book book, int bookindex){
 
             borrowings.remove(btw);
             books.set(bookindex, book);
@@ -487,8 +516,4 @@ public class Database {
             saveBooks();
         }
     }
-
-
-
-
 

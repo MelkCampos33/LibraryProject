@@ -1,7 +1,6 @@
 package Libary;
 
 // Importações
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -37,7 +36,7 @@ public class Main {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3, 2, 13, 15));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 15, 20, 15));
-        panel.setBackground(null);
+        panel.setOpaque(false);
 
         // página inicial
         JLabel title = label("Seja bem vindo a E-Livroteca: Biblioteca Virtual Multidisciplinar!");
@@ -121,7 +120,7 @@ public class Main {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(5, 2, 15, 15));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 15, 20, 15));
-        panel.setBackground(null);
+        panel.setOpaque(false);
 
         // criação de uma nova conta
 

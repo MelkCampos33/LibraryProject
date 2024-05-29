@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 public class NormalUser extends User{
 
     public NormalUser(String name) {
-
         super(name);
         this.operations = new IOOperation[] { // atos relacionados a permissão do usuário
 
@@ -13,8 +12,8 @@ public class NormalUser extends User{
                 new Search(),
                 new PlaceOrder(),
                 new BorrowBook(),
-                //new CalculateFine(),
-                //new ReturnBook(),
+                new CalculateFine(),
+                new ReturnBook(),
                 new Exit()
         };
     }
@@ -38,7 +37,7 @@ public class NormalUser extends User{
     @Override
     public void menu(Database database, User user) {
 
-                  String[] data = new String[7]; // array de opções do menu inicial
+                String[] data = new String[7]; // array de opções do menu inicial
 
                 data[0] =  "Visualizar Livros";
                 data[1] =  "Procurar";

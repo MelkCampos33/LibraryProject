@@ -59,6 +59,9 @@ public class AddBook implements  IOOperation{
         panel.add(label4);
         panel.add(bca);
 
+        panel.add(label5);
+        panel.add(qty);
+
         panel.add(label6);
         panel.add(price);
 
