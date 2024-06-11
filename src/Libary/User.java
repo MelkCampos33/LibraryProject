@@ -97,7 +97,6 @@ public abstract class User {
 
             panel_1.add(button);
         }
-
         frame.getContentPane().add(panel_1, BorderLayout.CENTER);
         return frame;
     }

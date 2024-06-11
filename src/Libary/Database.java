@@ -152,7 +152,6 @@ public class Database {
                        users.add(user);
                        usernames.add(user.getName());
 
-
                    } else {
 
                        User user = new NormalUser(arrayValue2[0], arrayValue2[1], arrayValue2[2]);

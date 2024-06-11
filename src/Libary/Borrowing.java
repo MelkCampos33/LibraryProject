@@ -62,10 +62,10 @@ public class Borrowing {
         this.user = user;
     }
 
-    // string
+    // string mostrando a sinformações salvas no banco de dados
 
     public String toString() {
-        return "Inicio do emprestimo: " + start + "\nData de entrega: " + finish + "\nDias Restantes: " + daysleft;
+        return "Inicio do emprestimo: " + start + "\n Data de entrega: " + finish + "\n Dias Restantes: " + daysleft;
     }
 
     public String toString2() {
