@@ -6,6 +6,13 @@ import java.time.format.DateTimeFormatter;
 
 public class Borrowing {
 
+    /**
+     * @param Metodo da classe de alguel de livros
+     *
+     LocalDate start: Armazena a data de início do empréstimo
+     LocalDate finish: Armazena a data de término do empréstimo
+     */
+
     LocalDate start;
     LocalDate finish;
     int daysleft;
@@ -62,11 +69,18 @@ public class Borrowing {
         this.user = user;
     }
 
-    // string mostrando a sinformações salvas no banco de dados
+    /**
+      - String mostrando as informações salvas no banco de dados
 
+     * obtem uma visão rápida e legível do empréstimo, exibindo as datas e os dias restantes.
+     */
     public String toString() {
         return "Inicio do emprestimo: " + start + "\n Data de entrega: " + finish + "\n Dias Restantes: " + daysleft;
     }
+
+    /**
+     *  para uma representação mais compacta e delimitada do empréstimo, incluindo informações sobre o livro e o usuário, possivelmente para armazenamento ou transmissão de dados.
+     */
 
     public String toString2() {
         return getStart() + "<N/>" + getFinish() + "<N/>" + getDaysLeft() + "<N/>" +

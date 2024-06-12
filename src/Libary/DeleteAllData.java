@@ -9,12 +9,17 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 
+/**
+ * Implementa a interface 'Iooperation'.
+ *
+ * esta classe exibe uma interface para confirmar a exclusão de todos os dados
+ * e executa a exclusão se o usuário assim a confirmar
+ */
 public class DeleteAllData implements IOOperation{
+
 
     @Override
     public void oper(Database database, User user) {
@@ -36,6 +41,15 @@ public class DeleteAllData implements IOOperation{
 
         del.addActionListener(new ActionListener() {
 
+            /**
+             Adiciona um ActionListener ao botão 'del'
+             no método actionPerformed, quando o botão 'del' é clicado:
+
+             1- chama database.deleteAllData() para excluir todos os dados do banco de dados
+             2- fecha a janela (frame.dispose())
+             3- chama o método 'oper' de uma nova instância da classe 'Exit', que  finaliza a aplicação ou realiza alguma outra ação de saída
+             */
+
             @Override
             public void actionPerformed(ActionEvent event) {
 
@@ -45,6 +59,11 @@ public class DeleteAllData implements IOOperation{
             }
         });
 
+
+        /**
+         finaliza a configuração da interface gráfica da classe 'DeleteAllData'. Após a configuração dos botões e seus respectivos ActionListeners, o JPanel é adicionado ao JFrame e este é exibido ao usuário.
+         Quando o botão "Cancelar" é clicado, a janela é fechada e o usuário é redirecionado para o menu principal
+         */
             cancel.addActionListener(new ActionListener() {
 
                 @Override

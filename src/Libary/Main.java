@@ -93,7 +93,6 @@ public class Main {
                  * @return se ambos estiverem preenchidos, chama o método "login"
                  * com os valores do campos "phonenumber", "email" e "frame"
                  */
-
                 if(phonenumber.getText().toString().matches("")) {
                     JOptionPane.showMessageDialog(new JFrame(), "O campo de telefone deve ser preenchido!");
                     return;
@@ -108,6 +107,11 @@ public class Main {
             }
         });
 
+
+        /**
+         * @param Ouvinte de ação para o botão "newUser"
+         * @return quando o botão é acionado, o métado "newuser" é chamado para realizar uma ação.
+         */
         newUser.addActionListener(new ActionListener() {
 
             @Override
@@ -128,10 +132,20 @@ public class Main {
         frame.setVisible(true);
     }
 
+    /**
+     * -> Verifica as credencias de login ("phonenumber" e "email") no banco de dados
+     * -> se as credenciais forem válidas (encontrado o usuário), obtem assim o objeto "user" correspondente.
+     *
+     * => caso não encontrado emite uma mensagem de erro, informando que o usuario não existe
+     */
     private static void login(String phonenumber, String email, JFrame frame) {
 
         int databaseValue = database.login(phonenumber, email);
 
+        /**
+         O valor retornado é armazenado na variável "databaseValue".
+         Normalmente, este valor poderia ser um ID de usuário ou um indicador de falha (como -1)
+         */
         if(databaseValue != -1) {
 
             User user = database.getUser(databaseValue);
@@ -143,6 +157,12 @@ public class Main {
         }
     }
 
+    /**
+     * - Cria um novo "jframe" com dimensões especificas
+     * - Configura um "jPanel" com layout de grade e uma borda vazia
+     * - "JRadioButtons" para selecionar o usuário
+     * - "jButtons" para as ações de criar conta e cancelar
+     */
     private static void newuser() {
 
         JFrame frame = frame(500, 400);
@@ -152,8 +172,9 @@ public class Main {
         panel.setBorder(BorderFactory.createEmptyBorder(10, 15, 20, 15));
         panel.setOpaque(false);
 
-        // criação de uma nova conta
-
+        /**
+            Criação de uma nova conta
+         */
         JLabel title = label("Criar uma nova conta");
         title.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         title.setFont(new Font("Tohoma", Font.BOLD, 21));
@@ -173,6 +194,11 @@ public class Main {
         JButton createAcount = button("Criar Conta");
         JButton cancel = button("Cancelar");
 
+
+        /**
+            Adiciona um ActionListener ao botão de opção "admin" que é um "jRaadioButton".
+            @return quando o botão "admin" é clicado, o código dentro do método "actionPerfomed" é executado.
+         */
         admin.addActionListener(event -> {
 
             if(normaluser.isSelected()) {
@@ -199,11 +225,19 @@ public class Main {
         panel.add(createAcount);
         panel.add(cancel);
 
-        createAcount.addActionListener(new ActionListener() {
 
+        /**
+            @param Adiciona um ActionListener ao botao "createAcount".
+            @return quando o botão "createAcount" for acionado, "actionPerformed" é executado
+         */
+
+        createAcount.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                /**
+                     Validações de espaços vazios e registros já realizados
+                 */
                 if(database.userExists(name.getText().toString())) {
                     JOptionPane.showMessageDialog(new JFrame(), "Esse nome já foi registrado! \n tente outro");
                     return;
@@ -259,6 +293,11 @@ public class Main {
         frame.setVisible(true);
     }
 
+
+
+    /**
+        Confirgução e manipulação do JFrame
+     */
     public static JFrame frame(int width, int height) {
 
         JFrame frame = new JFrame();
@@ -274,7 +313,9 @@ public class Main {
         return frame;
     }
 
-
+    /**
+     Confirgução e manipulação do JLabel
+     */
     public  static JLabel label(String text) {
 
         JLabel label_1 = new JLabel(text);
@@ -286,6 +327,9 @@ public class Main {
         return label_1;
     }
 
+    /**
+     Confirgução e manipulação do textField
+     */
     public static JTextField textfield() {
 
         JTextField textField_1 = new JTextField();
@@ -297,6 +341,9 @@ public class Main {
         return textField_1;
     }
 
+    /**
+     Confirgução e manipulação do JButton
+     */
     public static JButton button(String text) {
 
         JButton button = new JButton(text);
@@ -310,6 +357,9 @@ public class Main {
         return button;
     }
 
+    /**
+     Confirgução e manipulação do JRadioButton
+     */
     public static JRadioButton radioButton(String text) {
 
         JRadioButton button = new JRadioButton();
@@ -322,6 +372,9 @@ public class Main {
         return button;
     }
 
+    /**
+     Outra Confirgução e manipulação do JLabel em relação a aparencia grafica
+     */
     public static JLabel title(String text) {
 
         JLabel title = Main.label(text);

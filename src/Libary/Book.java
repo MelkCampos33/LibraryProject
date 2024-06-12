@@ -2,7 +2,9 @@ package Libary;
 
 public class Book {
 
-    // dados de descrição do livro
+    /**
+        @param Descrição de requisitos para criar um livro
+     */
     private String name;
     private String author;
     private String publisher;
@@ -14,17 +16,25 @@ public class Book {
 
     public Book() {};
 
-
+    /**
+     * Construtor da classe Book
+     */
     public Book(String name, String author, String publisher,
                 String adress, int qty, double price, int brwcopies) {
 
-        this.name = name;
-        this.author = author;
-        this.publisher = publisher;
-        this.qty = qty;
-        this.price = price;
-        this.brwcopies = brwcopies;
+        this.name = name; // nome do livro
+        this.author = author; // autor do livro
+        this.publisher = publisher; // editora
+        this.qty = qty; // quantidade de livros disponiveis
+        this.adress = adress; // onde o livro esta disponivel
+        this.price = price; // valor do livro
+        this.brwcopies = brwcopies; // número de copias emprestadas
     }
+
+    /**
+     *  @return Esse método cria uma string que apresenta todos os atributos do objeto "Book"
+     *  em formato mais legível, colocando cada atributp em uma nova linha.
+     */
 
     public String toString2() {
 

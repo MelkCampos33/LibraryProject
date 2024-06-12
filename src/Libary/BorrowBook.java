@@ -12,7 +12,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
+
 public class BorrowBook implements IOOperation {
+
+    /**
+     * Metodo "oper" configura uma janela "JFrame" usada para emprestimos de livros.
+     * Um botão parar confirmar o emprestimo e/ou cancelar a operação
+     *
+     */
 
     @Override
     public void oper(Database database, User user) {
@@ -38,6 +46,13 @@ public class BorrowBook implements IOOperation {
         panel.add(cancel);
 
 
+        /**
+         * @param InterfaceGrafica implementada para a parte de emprestimos de livros
+         *
+         * - Verifica se o nome do livro foi fornecido e se o livro existe no banco de dados,
+         *   se o usuario já alugou o livro anterioramente e se o livro tem cópias disponíveis.
+         *
+         */
         borrow.addActionListener(new ActionListener() {
 
             @Override
@@ -51,10 +66,19 @@ public class BorrowBook implements IOOperation {
 
                 int i = database.getBook(name.getText().toString());
 
+
+                /**
+                 Obtém o livro do banco de dados e inicializa uma variável n como true,
+                 que será usada para verificar se o usuário já alugou o livro.
+                 */
                 if(i > -1) {
                     Book book = database.getBook(i);
                     boolean n =  true;
 
+                    /**
+                     Percorre todos os empréstimos no banco de dados e verifica se o usuário atual já alugou o livro.
+                     Se já tiver alugado, define n como false e exibe uma mensagem de aviso.
+                     */
                     for(Borrowing b : database.getBorrowingValue()) {
                         if(b.getBook().getName().matches(name.getText().toString()) &&
                         b.getUser().getName().matches(user.getName())) {
@@ -65,6 +89,11 @@ public class BorrowBook implements IOOperation {
                         }
                     }
 
+                    /**
+                     *  Se o usuário não alugou o livro anteriormente (n é true) e o livro tem cópias disponíveis para empréstimo (book.getBrwcopies() > 1),
+                     *  cria um novo empréstimo (Borrowing), atualiza o número de cópias emprestadas,
+                     *  adiciona o empréstimo ao banco de dados, exibe uma mensagem de confirmação com a data de devolução e fecha a janela.
+                     */
                     if(n) {
                         if(book.getBrwcopies() > 1) {
 
@@ -87,6 +116,9 @@ public class BorrowBook implements IOOperation {
             }
         });
 
+        /**
+             Define que quando o botão for clicado, a janela (frame) será fechada.
+         */
         cancel.addActionListener(new ActionListener() {
 
             @Override
