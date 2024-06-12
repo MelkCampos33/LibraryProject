@@ -1,6 +1,9 @@
 package Libary;
 
-// Importações
+/**
+    Importação de bibliotecas
+ */
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -21,33 +24,52 @@ import javax.swing.SwingConstants;
 
 public class Main {
 
-    // importação do scanner e da base de dados
+    /**
+    * @param Importações de leitura do Scanner e da classe de Database (banco de dados da aplicação)
+    */
 
     static Scanner input;
     static Database database;
 
     public static void main(String[] args) {
 
+
+        /**
+         * Importação da classe do banco de dados
+        */
         database = new Database();
 
-        JFrame frame = frame(500, 300);  // tamanho do canvas da aplicação
+        /**
+         * @param Jframe - criação do conteiner de armazenamento de componentes
+         * @return tamanho do canvas
+         */
 
+        JFrame frame = frame(500, 300);  // tamanho do canvas da aplicação
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3, 2, 13, 15));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 15, 20, 15));
         panel.setOpaque(false);
 
-        // página inicial
+
+        /**
+         * Mensagem da Página inicial do Sistema
+         */
         JLabel title = label("Seja bem vindo a E-Livroteca: Biblioteca Virtual Multidisciplinar!");
 
+        /**
+         * @param Criação JLabel de borda vazia de 15 pixels ao seu redor
+         * para criar uma margem inteira.
+         */
         title.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         title.setFont(new Font("Bell MT", Font.BOLD, 21));
         title.setForeground(Color.decode("#2f3640"));
         frame.getContentPane().add(title, BorderLayout.NORTH);
 
-        // dados de login e entrada no sistema
-
+        /**
+         * @param Login do sistema.
+         * @return dados necessarios para o login no sistema
+         */
         JLabel firstLabel = label("Telefone: ");
         JLabel secondLabel = label("E-mail: ");
 
@@ -57,13 +79,20 @@ public class Main {
         JButton newUser = button("Novo Usuário");
 
 
-        // adicionando um ouvinte de eventos (event listener)
-        // a um componente de interface gráfica.
+        /**
+         * @param EventListener adicionando um ouvinte de eventos
+         * a um componente de interface gráfica
+         */
 
         login.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent event) {
+
+                /**
+                 * @param Validação dos dados. Verefica se os dados de Telefone e Email estão preenchidos
+                 * @return se ambos estiverem preenchidos, chama o método "login"
+                 * com os valores do campos "phonenumber", "email" e "frame"
+                 */
 
                 if(phonenumber.getText().toString().matches("")) {
                     JOptionPane.showMessageDialog(new JFrame(), "O campo de telefone deve ser preenchido!");
@@ -74,6 +103,7 @@ public class Main {
                     JOptionPane.showMessageDialog(new JFrame(), "O campo de email deve ser preenchido!");
                     return;
                 }
+
                 login(phonenumber.getText().toString(), email.getText().toString(), frame);
             }
         });
