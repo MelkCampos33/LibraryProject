@@ -7,6 +7,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Este código define a operação de visualização de livros.
+ * -> calcula o número de linhas necessárias na interface do usuário com base no tamanho do banco de dados de livros.
+ *
+ * -> cria um JFrame para exibir a interface. Um título é adicionado ao topo do frame.
+ * Um JPanel é configurado para conter os detalhes dos livros, usando um layout de grade para organizar os elementos.
+ *
+ * -> Em seguida, um array de strings é criado para representar os cabeçalhos das colunas da tabela de livros.
+ * Para cada elemento neste array, um JLabel é criado usando o método label() da classe Main e adicionado ao painel.
+ */
 public class ViewBooks implements IOOperation{
 
     @Override
@@ -33,7 +43,15 @@ public class ViewBooks implements IOOperation{
             panel.add(label);
         }
 
-       for(Book bookValue : database.getAllBooks()) {
+        /**
+         * --> intera sobre todos os livros presentes no banco de dados e cria JLabels para cada atributo de cada livro
+         * Os JLabels são então adicionados ao painel que contém os detalhes dos livros
+         *
+         * --> o painel é adicionado ao frame e o frame é exibido. Cada livro é representado como uma linha na interface,
+         * com cada atributo do livro sendo exibido em uma coluna separada.
+         */
+
+        for(Book bookValue : database.getAllBooks()) {
 
            JLabel label1 = label(bookValue.getName());
            JLabel label2 = label(bookValue.getAuthor());
@@ -55,6 +73,20 @@ public class ViewBooks implements IOOperation{
        frame.getContentPane().add(panel, BorderLayout.CENTER);
        frame.setVisible(true);
     }
+
+    /**
+     *
+     * @param text
+     * @return
+     *
+     *  --> label cria e retorna um JLabel com o texto fornecido como argumento.
+     *  --> utiliza um método estático Main.label(text) para criar o JLabel, definindo o texto e as configurações de fonte padrão.
+     *
+     *
+     * --> define o fundo do JLabel como branco (Color.white).
+     * --> adiciona uma borda ao redor do JLabel com uma linha preta (BorderFactory.createLineBorder(Color.black, 1)).
+     * --> torna o JLabel opaco (label.setOpaque(true)), o que permite que o fundo colorido seja visível.
+     */
 
     private JLabel label(String text) {
 

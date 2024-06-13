@@ -12,7 +12,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
+/**
+ * a classe ViewOrders cria uma interface gráfica para visualizar os pedidos no sistema
+ *
+ * definem a estrutura básica da interface gráfica para visualizar os pedidos e
+ * permitem que o usuário insira o nome do livro desejado para visualizar os pedidos associados a esse livro.
+ */
 public class ViewOrders implements IOOperation{
 
     @Override
@@ -39,6 +44,18 @@ public class ViewOrders implements IOOperation{
         panel.add(view);
         panel.add(cancel);
 
+
+        /**
+         * --> a ação realizada quando o botão "Visualizar Pedidos" é clicado em uma interface gráfica. Primeiramente, ele verifica se o campo onde o
+         * usuário deve inserir o nome do livro está vazio e exibe uma mensagem de aviso se estiver.
+         *
+         *
+         * --> Em seguida, ele procura o livro no banco de dados com base no nome inserido pelo usuário. Se o livro for encontrado,
+         * o sistema exibe os pedidos relacionados a esse livro e fecha a janela atual.
+         *
+         *
+         * --> Caso o livro não seja encontrado, uma mensagem informando isso é exibida ao usuário.
+         */
         view.addActionListener(new ActionListener() {
 
             @Override
@@ -73,7 +90,23 @@ public class ViewOrders implements IOOperation{
         frame.setVisible(true);
     }
 
-
+    /**
+     *
+     * @param bookname
+     * @param database
+     *
+     *
+     * --> O método viewOrders é responsável por calcular o número de linhas necessárias para exibir os pedidos relacionados a um livro específico.
+     * Ele recebe o nome do livro (bookname) e o banco de dados (database) como parâmetros.
+     *
+     * --> Dentro do método, inicialmente, é definido um contador de linhas (rows) com valor inicial de 1.
+     * Em seguida, há um loop que percorre todos os pedidos no banco de dados.
+     *
+     * --> Para cada pedido, verifica-se se o nome do livro associado a ele corresponde ao nome do livro fornecido como entrada.
+     * Se a correspondência for encontrada, incrementa-se o contador de linhas (rows).
+     *
+     * --> Ao final do loop, o valor de rows representa o número total de pedidos relacionados ao livro fornecido.
+     */
     private void viewOrders(String bookname, Database database) {
 
         int rows = 1;
@@ -98,6 +131,24 @@ public class ViewOrders implements IOOperation{
 
         String[] row1 = new String[] { "Livro", "User", "Quantidade", "Preço" };
 
+        /**
+         *
+         --> Esses loops são responsáveis por adicionar rótulos (JLabel) ao painel (panel)
+         para exibir informações sobre os pedidos de livros.
+
+
+         --> No primeiro loop, são percorridos os elementos do array row1, que contém os cabeçalhos das colunas para a exibição dos dados dos pedidos. Para cada elemento do array,
+         é criado um rótulo com o texto correspondente e adicionado ao painel.
+
+
+         --> No segundo loop, são percorridos todos os pedidos no banco de dados. Para cada pedido, verifica-se se o nome do livro associado a ele
+         corresponde ao nome do livro fornecido como entrada (bookname).
+
+
+         --> Se houver uma correspondência, são criados rótulos para exibir o nome do livro,
+            o nome do usuário que fez o pedido, a quantidade de livros solicitados e o preço total do pedido.
+            Esses rótulos são então adicionados ao painel para exibição.
+         */
         for(String stringValue : row1) {
 
             JLabel label = label(stringValue);
@@ -124,6 +175,12 @@ public class ViewOrders implements IOOperation{
         frame.setVisible(true);
     }
 
+    /**
+     *
+     * @param text
+     * @retur Essa função é útil para criar rótulos com uma aparência consistente e pode ser reutilizada em várias partes
+     * do código onde rótulos semelhantes são necessários.
+     */
     private JLabel label(String text) {
 
         JLabel label = Main.label(text);
