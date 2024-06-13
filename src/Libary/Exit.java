@@ -3,9 +3,13 @@ package Libary;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 
+/**
+ * Este código configura uma interface gráfica que permite ao usuário entrar com um número de telefone e um email para fazer login ou criar um novo usuário.
+ * A interface inclui campos de texto para o número de telefone e email, e botões para "Login" e "Novo Usuário".
+ * Quando o botão "Login" é clicado, o código verifica se os campos estão preenchidos e, se estiverem, chama o método login para processar o login.
+ */
 public class Exit implements IOOperation    {
 
     Database database;
@@ -16,11 +20,20 @@ public class Exit implements IOOperation    {
         JFrame frame = Main.frame(500, 300);
         this.database = new Database();
 
+        /**
+         *
+         * Cria um JPanel com layout de grade (3 linhas, 2 colunas) e espaçamento de 15 pixels tanto horizontal quanto vertical
+         * Define uma borda vazia ao redor do painel
+         * Define o fundo do painel como transparente
+         */
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3, 2, 15, 15));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 15, 20, 15));
         panel.setBackground(null);
 
+        /**
+         * Mensagem de boas vindas do sistema
+         */
         JLabel title = Main.label("Bem vindo a E-esqueci o nome do trabalho");
         title.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         title.setFont(new Font("Tahoma", Font.BOLD, 21));
@@ -41,11 +54,19 @@ public class Exit implements IOOperation    {
             @Override
             public void actionPerformed(ActionEvent event) {
 
+                /**
+                 * Verifica se o campo de número de telefone está vazio.
+                 * Se estiver, exibe uma mensagem de erro e retorna.
+                 */
                 if(phonenumber.getText().toString().matches("")) {
                     JOptionPane.showMessageDialog(new JFrame(), "Voce deve informar o telefone!");
                     return;
                 }
 
+                /**
+                 * Verifica se o campo de email está vazio.
+                 * Se estiver, exibe uma mensagem de erro e retorna.
+                 */
                 if(email.getText().toString().matches("")) {
                     JOptionPane.showMessageDialog(new JFrame(), "Voce deve informar o email!");
                     return;
@@ -77,12 +98,34 @@ public class Exit implements IOOperation    {
         frame.setVisible(true);
     }
 
+    /**
+     *
+     * @param phonenumber
+     * @param email
+     * @param frame
+     *
+     * O método login autentica um usuário com base no número de telefone e email fornecidos. Se a autenticação for bem-sucedida, obtém os dados do usuário e exibe o menu principal do usuário, fechando a janela de login.
+     * Se a autenticação falhar, exibe uma mensagem de erro informando que o usuário não existe.
+     */
     private void login(String phonenumber, String email, JFrame frame) {
 
         int value = database.login(phonenumber, email);
 
+        /**
+         * @param Verifica se o valor retornado pelo método database.login é diferente de -1
+         * -1 indica que a autenticação falhou (usuário não encontrado)
+         */
         if(value != -1) {
 
+            /**
+             * User user = database.getUser(value)
+             * obtém o objeto User correspondente ao valor value retornado
+             *
+             * user.menu(database, user)
+             * chama o método menu do usuário autenticado, passando o banco de dados e o usuário como parâmetros
+             *
+             * frame.dispose() --> Fecha a janela de login, pois o usuário foi autenticado com sucesso
+             */
             User user = database.getUser(value);
             user.menu(database, user);
             frame.dispose();
@@ -91,6 +134,13 @@ public class Exit implements IOOperation    {
             JOptionPane.showMessageDialog(new JFrame(), "O usuário não existe");
         }
     }
+
+    /**
+     * O método newUser configura uma janela com campos de entrada para o nome, telefone e email do usuário,
+     * opções para selecionar o tipo de conta (Admin ou Usuário Padrão) e botões para criar a conta ou cancelar a operação
+     * A interface é projetada para permitir a criação de uma nova conta de usuário de forma intuitiva e organizada
+     *
+     */
 
     private void newUser() {
 
@@ -153,6 +203,12 @@ public class Exit implements IOOperation    {
         panel.add(cancel);
 
 
+        /**
+         * @param ActionListener adicionado ao botão "Criar Conta" realiza várias verificações para garantir que os dados fornecidos pelo usuário são válidos antes de criar um novo usuário e adicioná-lo ao banco de dados
+         * @param Verifica se o nome do usuário já existe, se os campos de entrada estão preenchidos, se o tipo de usuário foi selecionado
+         * @param Cria o usuário e o adiciona ao banco de dados, fechando a janela de criação de usuário
+         */
+
         createacc.addActionListener(new ActionListener() {
 
             @Override
@@ -183,6 +239,11 @@ public class Exit implements IOOperation    {
                     return;
                 }
 
+                /**
+                 * cria uma instância de User
+                 * se a opção "Admin" estiver selecionada, cria um novo Admin
+                 * se a opção "Usuário Padrão" estiver selecionada, cria um novo NormalUser
+                 */
                 User user;
 
                 if (admin.isSelected()) {

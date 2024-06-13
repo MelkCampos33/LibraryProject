@@ -1,5 +1,10 @@
 package Libary;
 
+/**
+ * a classe Order é definida com quatro campos privados (book, user, price, qty) que armazenam os detalhes do pedido
+ * construtor: Um construtor é definido para inicializar esses campos quando um novo objeto Order é criado. Ele recebe quatro parâmetros correspondentes aos campos da classe
+ * encapsulamento: Os campos são privados para manter o encapsulamento, garantindo que os valores dos campos só possam ser alterados através de métodos específicos (não mostrados neste trecho, mas presumivelmente getters e setters)
+ */
 public class Order {
 
     private Book book;
@@ -50,6 +55,12 @@ public class Order {
         this.qty = qty;
     }
 
+    /**
+     * Os dois métodos fornecem flexibilidade na representação dos dados do pedido.
+     * -> 'toString' é para exibição amigável para o usuaruio
+     * -> 'toString2' é para uso em processamento de dados onde uma estrutura compacta e delimitada é necessária.
+     * @return
+     */
     public String toString() {
         return "Nome do Livro: " + book.getName() + "\n" +
                "Nome: " + user.getName() + "\n" +

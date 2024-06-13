@@ -6,7 +6,14 @@ public class NormalUser extends User{
 
     public NormalUser(String name) {
         super(name);
-        this.operations = new IOOperation[] { // atos relacionados a permissão do usuário
+        this.operations = new IOOperation[] {
+                /**
+                 * atos relacionados a permissão do usuário
+                 *
+                 * this.operations: Refere-se ao atributo operations da instância atual de NormalUser
+                 * new IOOperation[] ->
+                 * @param Inicializa o atributo operations com um array de objetos que implementam a interface IOOperation
+                 */
 
                 new ViewBooks(),
                 new Search(),
@@ -22,6 +29,12 @@ public class NormalUser extends User{
 
         super(name, email, phonenumber);
 
+        /**
+         *
+         * Cada uma dessas operações teria sua própria implementação específica,
+         * definindo como a operação deve ser executada no contexto do sistema
+         */
+
         this.operations = new IOOperation[] {
 
                 new ViewBooks(),
@@ -34,6 +47,14 @@ public class NormalUser extends User{
         };
     }
 
+    /**
+     *
+     * @param database
+     * @param user
+     *
+     * este método menu é uma implementação do método abstrato ou interface na classe User (ou outra classe relacionada),
+     * que define o menu de opções disponíveis para um usuário
+     */
     @Override
     public void menu(Database database, User user) {
 
@@ -46,8 +67,11 @@ public class NormalUser extends User{
                 data[4] =  "Taxa de Atraso de Entrega";
                 data[5] =  "Devolver Livro";
                 data[6] =  "Sair";
-
-                JFrame frame = this.frame(data, database, user);
+        /**
+         * Chama um método frame, passando o array data, o objeto database, e o objeto user como parâmetros.
+         * Este método frame cria um JFrame (janela) contendo as opções do menu
+         */
+        JFrame frame = this.frame(data, database, user);
                 frame.setVisible(true);
     }
 

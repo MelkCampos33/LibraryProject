@@ -2,7 +2,6 @@ package Libary;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
@@ -13,6 +12,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * A classe PlaceOrder configura uma interface gráfica que permite ao usuário realizar uma encomenda de livros.
+ * Ela utiliza um layout de grade para organizar os componentes de entrada (nome do livro e quantidade) e os botões de ação (encomendar e cancelar).
+ * O método oper monta essa interface e a exibe ao usuário, mas ainda não adicionamos a lógica dos botões, que será responsável por processar a encomenda ou cancelar a operação.
+ */
 public class PlaceOrder implements IOOperation{
 
     @Override
@@ -28,6 +32,9 @@ public class PlaceOrder implements IOOperation{
         panel.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
         panel.setBackground(null);
 
+        /**
+         * @param Descrição para fazer o pedido
+         */
         JLabel label = Main.label("Nome do Livro: ");
         JTextField name = Main.textfield();
         JLabel label2 = Main.label("Quantidade: ");
@@ -47,6 +54,10 @@ public class PlaceOrder implements IOOperation{
 
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                /**
+                 * @param Validação de dados. Se estao preenchidos de maneira correta e/ou os campos estão vazio.
+                 */
 
                 if(name.getText().toString().matches("")) {
                     JOptionPane.showMessageDialog(new JFrame(), "O nome do livro deve ser preechido!");
@@ -74,6 +85,14 @@ public class PlaceOrder implements IOOperation{
 
                 } else {
 
+                    /**
+                     * @param Lógica de processamento de um pedido de livros
+                     * Ele obtém o livro do banco de dados, configura o pedido com o livro e o usuário, calcula o preço
+                     * total com base na quantidade solicitada, atualiza a quantidade disponível do livro no banco de dados,
+                     * @return adiciona o pedido ao banco de dados, e finalmente, exibe uma mensagem de confirmação ao usuário e fecha a janela atual
+                     *
+                     * Este fluxo garante que o pedido seja registrado corretamente e que o estoque de livros seja atualizado de acordo
+                     */
                     Book book = database.getBook(i);
                     order.setBook(book);
                     order.setUser(user);

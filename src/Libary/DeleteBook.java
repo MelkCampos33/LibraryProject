@@ -13,10 +13,23 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+
+/**
+ * - Interface de parte de deletar livros
+ *
+ * este código configura uma interface gráfica onde o usuário pode inserir o nome do livro que deseja deletar.
+ * Os botões "Deletar Livro" e "Cancelar" permitem ao usuário confirmar ou cancelar a operação, respectivamente.
+ * ao clicar em um desses botões, a janela é fechada e a operação correspondente é realizada.
+ */
 public class DeleteBook implements IOOperation{
 
     @Override
     public void oper(Database database, User user) {
+
+        /**
+         * @param Parâmetros: database, que é o banco de dados onde o livro será deletado,
+         * e user, que é o usuário que está realizando a operação.
+         */
 
         JFrame frame = Main.frame(400, 210);
         frame.setLayout(new BorderLayout());
@@ -24,11 +37,20 @@ public class DeleteBook implements IOOperation{
         JLabel title = Main.title("Deletar Livro");
         frame.getContentPane().add(title, BorderLayout.NORTH);
 
+        /**
+         *
+         * cria um JPanel com layout de grade (2 linhas, 2 colunas) e espaçamento de 15 pixels tanto horizontal quanto vertical
+         * define uma borda vazia ao redor do painel
+         * define o fundo do painel como transparente
+         */
+
         JPanel panel = new JPanel(new GridLayout(2, 2, 15, 15));
         panel.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
         panel.setBackground(null);
 
-
+        /**
+         * @param Especificações dos livros
+         */
         JLabel label = Main.label("Nome do Livro: ");
         JTextField name = Main.textfield();
 

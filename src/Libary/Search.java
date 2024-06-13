@@ -13,6 +13,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * Este código define a estrutura básica para permitir que os usuários realizem pesquisas de livros por nome.
+ * Ao inserir um nome de livro e clicar no botão "Procurar", a aplicação pode iniciar a busca no banco de dados por livros correspondentes.
+ * O botão "Cancelar" oferece uma opção para interromper a operação de pesquisa e fechar a janela
+ *
+ *
+ * Quando o botão "Procurar" é pressionado, uma ação é acionada para iniciar
+ * a pesquisa com base no nome do livro fornecido pelo usuário.
+ */
+
 public class Search implements IOOperation{
 
     @Override
@@ -47,6 +57,11 @@ public class Search implements IOOperation{
                     return;
                 }
 
+                /**
+                 * permite que os usuários realizem uma busca por um livro pelo nome no banco de dados.
+                 * Se o livro for encontrado, seus detalhes são exibidos em uma caixa de mensagem; caso contrário,
+                 * uma mensagem informando que o livro não existe é exibida.
+                 */
                 int i = database.getBook(name.getText().toString());
 
                 if(i > - 1) {

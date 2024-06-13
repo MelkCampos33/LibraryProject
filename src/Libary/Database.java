@@ -1,7 +1,8 @@
 package Libary;
 
 /**
- Importação de bibliotecas*/
+ Importação de bibliotecas
+ */
 
 import java.io.*;
 import java.time.LocalDate;
